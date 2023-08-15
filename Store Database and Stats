@@ -1,0 +1,36 @@
+--Create a store database
+
+CREATE TABLE store(id integer primary key, name text, quantity integer, price integer,size integer);
+
+INSERT INTO store VALUES(1,"Sneakers",6,20,5);
+INSERT INTO store VALUES(2,"Shirt",5,25,6);
+INSERT INTO store VALUES(3,"Pants",8,30,12);
+INSERT INTO store VALUES(4,"Dress",10,50,8);
+INSERT INTO store VALUES(5,"Socks",9,10,9);
+INSERT INTO store VALUES(6,"Shorts",9,25,7);
+INSERT INTO store VALUES(7,"Bike",4,34,3);
+INSERT INTO store VALUES(8,"Baking pan",5,56,4);
+INSERT INTO store VALUES(9,"Watch",9,80,9); 
+INSERT INTO store VALUES(10,"Bra",2,54,32); 
+INSERT INTO store VALUES(11,"Slippers",8,15,10); 
+INSERT INTO store VALUES(12,"Gloves",20,15,4);
+INSERT INTO store VALUES(13,"Hat",30,25,9);
+INSERT INTO store VALUES(14,"Purse",18,76,16);
+INSERT INTO store VALUES(15,"Suit",10,150,46);
+
+--display the database table
+SELECT *
+FROM store;
+
+--display the price of items by desc order
+SELECT *
+FROM store ORDER BY price DESC;
+
+--what is the highest priced item in the store?
+SELECT MAX(price)
+FROM store;
+
+--what is the avg price of items in the size section?
+SELECT AVG(price)"size"
+FROM store
+WHERE size >= 5;

@@ -1,0 +1,51 @@
+--create a table of famous singers
+
+CREATE TABLE singers (
+id INTEGER PRIMARY KEY,
+name TEXT,
+album TEXT,
+song TEXT);
+
+INSERT INTO singers (name, album, song) VALUES ("Freddie Mercury", "A Night at the Opera", "Bohemian Rhapsody");
+INSERT INTO singers (name, album, song) VALUES ("Tony Bennett", "I Left my Heart in San Francisco", "I Left my Heart in San Francisco");
+INSERT INTO singers (name, album, song) VALUES ("Ella Fitzgerald", "Ella Fitzgerald Sings The Irving Berling Song Book", "Heat Wave");
+INSERT INTO singers (name, album, song) VALUES ("Adele", "21", "Rolling in the Deep");
+INSERT INTO singers (name, album, song) VALUES ("Elton John", "Elton John", "Your Song");
+INSERT INTO singers (name, album, song) VALUES ("Pink", "P!nk","There You Go");
+
+--What songs did they sing or write?
+
+SELECT * FROM singers;
+
+SELECT name,song,album 
+From singers 
+Where song="Rolling in the Deep" 
+OR album="Elton John";
+
+
+CREATE table country (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+singer_id INTEGER,
+birth_place TEXT);
+
+INSERT INTO country (singer_id, birth_place) VALUES (1, "Tanzania");
+INSERT INTO country (singer_id, birth_place) VALUES (2, "USA");
+INSERT INTO country (singer_id, birth_place) VALUES (3, "USA");
+INSERT INTO country (singer_id, birth_place) VALUES (4, "England");
+INSERT INTO country (singer_id, birth_place) VALUES (5, "England");
+INSERT INTO country (singer_id, birth_place) VALUES (6, "USA");
+
+--What countries are these singers from?
+
+SELECT singers.name, country.birth_place 
+FROM singers 
+JOIN country 
+ON singers.id = country.singer_id;
+
+--Singers from the USA.
+
+SELECT singers.name,country.birth_place
+FROM singers
+JOIN country
+ON singers.id=country.singer_id
+WHERE country.birth_place="USA";

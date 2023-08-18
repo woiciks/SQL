@@ -12,6 +12,15 @@ INSERT INTO singers (name, album, song) VALUES ("Ella Fitzgerald", "Ella Fitzger
 INSERT INTO singers (name, album, song) VALUES ("Adele", "21", "Rolling in the Deep");
 INSERT INTO singers (name, album, song) VALUES ("Elton John", "Elton John", "Your Song");
 INSERT INTO singers (name, album, song) VALUES ("Pink", "P!nk","There You Go");
+INSERT INTO singers (name, album, song) VALUES ("Bing Crosby", "White Christmas","White Christmas");
+INSERT INTO singers (name, album, song) VALUES ("Celine Dion", "Celine Dion","My Heart Will Go On");
+INSERT INTO singers (name, album, song) VALUES ("Elvis Presley", "","It's Now or Never");
+INSERT INTO singers (name, album, song) VALUES ("Olivia Newton-John", "Olivia Newton-John","Physical");
+INSERT INTO singers (name, album, song) VALUES ("Rick Springfield", "Working Class Dog","Jessie's Girl");
+INSERT INTO singers (name, album, song) VALUES ("Bono", "The Joshua Tree","With or Without You");
+INSERT INTO singers (name, album, song) VALUES ("Julio Iglesias", "Julio Iglesias","Gwendolyne");
+INSERT INTO singers (name, album, song) VALUES ("Andrea Bocelli", "Andrea Bocelli","Melodramma");
+INSERT INTO singers (name, album, song) VALUES ("Aretha Franklin", "I Never Loved a Man the Way I Love You","Respect");
 
 --What songs did they sing or write?
 
@@ -34,18 +43,28 @@ INSERT INTO country (singer_id, birth_place) VALUES (3, "USA");
 INSERT INTO country (singer_id, birth_place) VALUES (4, "England");
 INSERT INTO country (singer_id, birth_place) VALUES (5, "England");
 INSERT INTO country (singer_id, birth_place) VALUES (6, "USA");
+INSERT INTO country (singer_id, birth_place) VALUES (7, "USA");
+INSERT INTO country (singer_id, birth_place) VALUES (8, "Canada");
+INSERT INTO country (singer_id, birth_place) VALUES (9, "USA");
+INSERT INTO country (singer_id, birth_place) VALUES (10, "England");
+INSERT INTO country (singer_id, birth_place) VALUES (11, "Australia");
+INSERT INTO country (singer_id, birth_place) VALUES (12, "Ireland");
+INSERT INTO country (singer_id, birth_place) VALUES (13, "Spain");
+INSERT INTO country (singer_id, birth_place) VALUES (14, "Italy");
+INSERT INTO country (singer_id, birth_place) VALUES (15, "USA");
 
---What countries are these singers from?
+--Which countries are these singers from?
 
 SELECT singers.name, country.birth_place 
 FROM singers 
 JOIN country 
 ON singers.id = country.singer_id;
 
---Singers from the USA.
+--Which singers are from the USA.
 
 SELECT singers.name,country.birth_place
 FROM singers
 JOIN country
 ON singers.id=country.singer_id
-WHERE country.birth_place="USA";
+WHERE country.birth_place="USA"
+ORDER BY name;

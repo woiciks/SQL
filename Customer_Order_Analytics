@@ -7,7 +7,7 @@ FROM BIT_DB.JanSales
 WHERE length(orderId)=6
 AND orderId<>'Order ID';
 
---#2 How many of those orders were for and iPhone?
+--#2 How many of those orders were for an iPhone?
 
 SELECT COUNT(orderID)
 FROM BIT_DB.JanSales

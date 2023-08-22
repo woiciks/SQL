@@ -56,3 +56,11 @@ FROM BIT_DB.Spotifydata
 GROUP BY artist_name,track_name
 ORDER BY popularity DESC
 LIMIT 10;
+
+--#Which song has the top energy level of the top 10 most popular songs?
+
+SELECT artist_name,track_name,energy,popularity
+FROM BIT_DB.Spotifydata
+GROUP BY energy
+ORDER BY popularity DESC
+LIMIT 10;

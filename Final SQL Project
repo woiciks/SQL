@@ -1,0 +1,79 @@
+--#Final SQL project
+
+--#1. Show Customers (their full names, customer ID, and country) who are not in the US. (Hint: !=or<>can be used to say "is not equal to").
+SELECT FirstName, LastName, CustomerId, Country
+FROM chinook.customers
+WHERE Country !="USA";
+
+--#2. Show the Employees who are Sales Agents.
+SELECT *
+FROM chinook.Employees
+WHERE Title = "Sales Support Agent";
+
+--#3. What are the total sales for 2009?
+SELECT SUM(Total)
+FROM chinook.invoices
+WHERE InvoiceDate BETWEEN "2009-01-01" AND '2009-12-31';
+
+--#4. Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+SELECT t.Name AS 'Track Name', a.Title AS 'Album TItle', m.Name AS 'Media Type', g.Name AS 'Genre'
+FROM chinook.tracks t
+JOIN chinook.Albums a
+ON a.AlbumID=t.AlbumID
+JOIN chinook.media_types m
+ON m.MediaTypeId=t.MediaTypeID
+JOIN chinook.Genres g
+ON g.GenreId=t.GenreId;
+
+--#5. Show the total sales made by each sales agent.
+SELECT e.FirstName, e.LastName,
+ROUND(SUM(i.Total),2) AS 'Total Sales'
+FROM chinook.employees e
+JOIN chinook.customers c
+ON c.SupportRepId=e.EmployeeId
+JOIN chinook.invoices i
+ON i.CustomerId=c.CustomerID
+WHERE e.Title="Sales Support Agent"
+GROUP BY e.FirstName;
+
+--#6. Which sales agent made the most dollars in sales in 2009?
+SELECT e.FirstName, e.LastName,
+ROUND(SUM(i.Total),2) AS 'Total Sales'
+FROM chinook.employees e
+JOIN chinook.customers c
+ON c.SupportRepId=e.EmployeeId
+JOIN chinook.invoices i
+ON i.CustomerId=c.CustomerID
+WHERE e.Title="Sales Support Agent"
+AND i.InvoiceDate LIKE "2009%"
+GROUP BY e.FirstName
+ORDER BY (round(sum(i.Total),2))
+DESC LIMIT 1;
+
+--#7. Find a unique/distinct list of billing countries from the Invoice table.
+SELECT distinct BillingCountry AS 'Billing Country'
+FROM chinook.invoices;
+
+--#8. List the rock tracks with the Composer AC/DC?
+SELECT tracks.Name AS Track,genres.Name AS Genre,tracks.Composer AS Composer
+FROM chinook.tracks
+JOIN chinook.genres
+ON tracks.GenreId=genres.GenreID
+WHERE genres.Name = 'Rock'
+AND tracks.Composer='AC/DC';
+
+--#9. Which rock tracks have the media audio file, AAC?
+SELECT tracks.Name AS Track,media_types.Name As Media
+FROM chinook.tracks
+JOIN chinook.genres
+ON genres.GenreId=tracks.GenreId
+JOIN chinook.media_types
+ON media_types.MediaTypeId = tracks.MediaTypeId
+WHERE genres.Name='Rock'
+AND media_types.Name='AAC audio file'
+GROUP BY tracks.Name;
+
+--10. Show only the Customers from Brazil.
+SELECT *
+FROM chinook.customers
+WHERE Country='Brazil';

@@ -1,6 +1,6 @@
---This code was created using a fictitious database called "sports_store" which includes two tables: orders and customers.
+-- This code was created using a fictitious database called "sports_store" which includes two tables: orders and customers.
 
---This project was done using Microsoft SQL Server.
+-- The data was explored using Microsoft SQL Server.
 
 
 select * from orders

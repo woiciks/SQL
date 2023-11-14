@@ -1,0 +1,94 @@
+--This code was created using a fictitious database called "sports_store" which includes two tables: orders and customers. 
+
+
+select * from orders
+
+-- 1. KPIs for Total Revenue, Profit, number of orders, profit margin
+
+select
+	sum(revenue) as total_revenue,
+	sum(profit) as total_profit,
+	count(*) as total_orders,
+	sum(profit)/sum(revenue) * 100.0 as profit_margin
+from
+	orders
+
+-- 2. Total Revenue, Profit, number of orders, profit margin for each sport
+
+select
+	sport,
+	round(sum(revenue),2) as total_revenue,
+	round(sum(profit),2) as total_profit,
+	count(*) as total_orders,
+	sum(profit)/sum(revenue) * 100.0 as profit_margin
+from
+	orders
+group by
+	sport
+order by
+	profit_margin desc
+
+-- 3. Number of customer ratings and the average rating
+
+select
+	(select count(*) from orders where rating is not null) as number_of_reviews,
+	round(avg(rating),2) as average_rating
+from
+	orders
+
+-- 4. Number of people for each rating and its revenue, profit, profit margin
+
+select
+	rating,
+	sum(revenue) as total_revenue,
+	sum(profit) as total_profit,
+	sum(profit)/sum(revenue) * 100.0 as profit_margin
+from
+	orders
+where
+	rating is not null
+group by
+	rating
+order by
+	rating desc
+
+-- 5. State revenue, profit, and profit margin
+
+select
+	c.state,
+	row_number() over (order by sum(o.revenue) desc) as revenue_rank,
+	sum(o.revenue) as total_revenue,
+	row_number() over (order by sum(o.profit) desc) as profit_rank,
+	sum(o.profit) as total_profit,
+	row_number() over (order by sum(o.profit)/sum(o.revenue) * 100.0 desc) as margin_rank,
+	sum(o.profit)/sum(o.revenue)*100.0 as profit_margin
+from
+	orders o
+join
+	customers c
+on 
+	o.customer_id = c.customer_id
+group by 
+	c.state
+order by
+	margin_rank
+
+-- 6. Monthly profits (monthyly_profit is the CET)
+
+with monthly_profit as (select
+	month(date) as month,
+	sum(profit) as total_profit
+from
+	orders
+group by
+	month(date))
+
+select
+	month,
+	total_profit,
+	lag(total_profit) over (order by month) as previous_month_proft,
+	total_profit - lag(total_profit) over (order by month) as profit_difference
+from
+	monthly_profit --CET 
+order by
+	month

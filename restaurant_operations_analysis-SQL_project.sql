@@ -1,4 +1,4 @@
---A Restaurant Order Analysis - A Guided Maven Project
+--A Restaurant Order Analysis - A MySQL Guided Maven Project
 
 --Analyze order data to identify the most and least popular menu items and types of cuisine.
 

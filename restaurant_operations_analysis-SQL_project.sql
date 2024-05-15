@@ -2,6 +2,15 @@
 
 --Analyze order data to identify the most and least popular menu items and types of cuisine.
 
+--Situation/Assignment: As a newly hired Data Analyst for "Taste of the World Cafe", I've been asked to dig into 
+-- 		         the customer data to see which menu items are doing well/not well and what the top customers
+-- 			 seem to like best.
+
+--Objectives include: 1. Explore the menu_items table to get an idea of what's on the new menu.
+--		      2. Explore the order_details table to get an idea of the data that's been collected.
+--		      3. Use both tables to understand how customers are reacting to the new menu.
+
+
 SELECT *
 FROM menu_items;
 
@@ -46,8 +55,7 @@ group by order_id
 order by num_items desc;
 
 SELECT COUNT(*) as orders_with_more_than_12_items
-FROM
-	(SELECT order_id, count(item_id) as num_items
+FROM (SELECT order_id, count(item_id) as num_items
 	FROM order_details
 	group by order_id
 	having num_items > 12) as num_orders; -- make subquary to find the count of orders that had more then 12 items
@@ -86,12 +94,4 @@ FROM order_details
 left join menu_items
 on menu_items.menu_item_id = order_details.item_id
 WHERE order_id in (330,440,1957,2075,2675)
-group by order_id,category; -- the top 5 orders that spent the most aount were on italian food, least on american food
-
-
-
-
-
-
-
-
+group by order_id,category; -- the top 5 orders that spent the most amount were on italian food, least on american food
